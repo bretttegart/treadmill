@@ -219,6 +219,7 @@ checkout = treadmill.sproc.checkout
 cleanup = treadmill.sproc.cleanup
 configure = treadmill.sproc.configure
 cron = treadmill.sproc.cron
+dnsmanager = treadmill.sproc.dnsmanager
 eventdaemon = treadmill.sproc.eventdaemon
 exec = treadmill.sproc.exec
 export-reports = treadmill.sproc.export_reports
