@@ -21,9 +21,7 @@ chown "${PROID}":"${PROID}" /var/spool/keytabs-proids/"${PROID}".keytab
 
 (
 cat <<EOF
-kinit -k -t /var/spool/keytabs-proids/"${PROID}".keytab -c /var/spool/tickets/"${PROID}".tmp "${PROID}"
-chown ${PROID}:${PROID} /var/spool/tickets/"${PROID}".tmp
-mv /var/spool/tickets/"${PROID}".tmp /var/spool/tickets/"${PROID}"
+su -c 'kinit -k -t /var/spool/keytabs-proids/"${PROID}".keytab "${PROID}"' ${PROID}
 EOF
 ) > /etc/cron.hourly/"${PROID}"-kinit
 
