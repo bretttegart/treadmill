@@ -11,14 +11,16 @@ class Singleton(type):
             'resource',
             (constants.EC2 if (len(args) == 0) else args[0])
         )
-        instance_resources = [klass._service_model.service_name.lower()
-                              for klass in list(cls._instances.values())]
+        try:
+            instance_resources = [klass._service_model.service_name.lower()
+                                  for klass in list(cls._instances.values())]
+        except:
+            instance_resources = []
         if (resource.lower() not in instance_resources):
             cls._instances[cls] = super(
                 Singleton, cls
             ).__call__(*args, **kwargs)
-        return cls._instances[cls]
-
+            return cls._instances[cls]
 
 class Connection(metaclass=Singleton):
     session = boto3.session.Session()
@@ -27,10 +29,11 @@ class Connection(metaclass=Singleton):
         domain=None
     )
 
-    def __init__(self, resource=constants.EC2):
+    def __init__(self, resource=constants.EC2, service_resource=False):
         pass
 
-    def __new__(cls, resource=constants.EC2):
-        return boto3.client(
-            resource, region_name=cls.context.region_name
-        )
+    def __new__(cls, resource=constants.EC2, service_resource=False):
+        if not service_resource:
+            return boto3.client(resource, region_name=cls.context.region_name)
+        else:
+            return boto3.resource(resource, region_name=cls.context.region_name)

@@ -110,7 +110,7 @@ _LINUX_ALIASES = {
     'tkt-send': None,
     'touch': '/bin/touch',
     'treadmill_bin': '/opt/treadmill/bin/treadmill',
-    'treadmill_bind_preload.so': None,
+    'treadmill_bind_preload.so': '/etc/treadmill_bind_preload.so',
     'treadmill_spawn': None,
     'treadmill_spawn_finish': None,
     'treadmill_spawn_run': None,
