@@ -217,6 +217,7 @@ checkout = treadmill.sproc.checkout
 cleanup = treadmill.sproc.cleanup
 configure = treadmill.sproc.configure
 cron = treadmill.sproc.cron
+dnsdaemon = treadmill.sproc.dnsdaemon
 elbdaemon = treadmill.sproc.elbdaemon
 eventdaemon = treadmill.sproc.eventdaemon
 exec = treadmill.sproc.exec

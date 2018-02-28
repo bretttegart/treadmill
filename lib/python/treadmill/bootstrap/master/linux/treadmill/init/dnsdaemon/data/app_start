@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Starts Treadmill DNS daemon watcher
+# Runs as {{ treadmillid }} proid
+#
+
+exec \
+    {{ treadmill_bin }} \
+    sproc \
+    dnsdaemon \
+    --proid {{treadmld}} \
+    --root {{root}} 
