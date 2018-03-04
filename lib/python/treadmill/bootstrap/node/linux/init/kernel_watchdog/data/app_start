@@ -3,7 +3,7 @@
 # Starts Treadmill kernel watchdog.
 
 exec \
-    {{ treadmill }}/bin/treadmill34 \
+    {{ treadmill }}/bin/treadmill \
     sproc --cgroup . \
     kernel-watchdog \
         --kernel-watchdog-root {{ dir }}/kernel_watchdog \

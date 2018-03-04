@@ -6,7 +6,7 @@ IONICE="{{ _alias.ionice }}"
 RM="{{ _alias.rm }}"
 PID1="{{ _alias.pid1 }}"
 ENVDIR="{{ _alias.s6_envdir }}"
-TMBIN="{{ treadmill }}/bin/treadmill34"
+TMBIN="{{ treadmill }}/bin/treadmill"
 
 ###############################################################################
 function run_parts {
