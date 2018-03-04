@@ -91,7 +91,8 @@ def init():
         logging.getLogger('treadmill').setLevel(log_level)
         logging.getLogger().setLevel(log_level)
 
-        if cgroup:
-            _configure_core_cgroups(cgroup)
+        # Disabling cgroups until fixed
+        #if cgroup:
+        #    _configure_core_cgroups(cgroup)
 
     return run
