@@ -27,7 +27,7 @@ DEFAULTS = {
     'treadmill_core_cpuset_cpus': '-',
     'treadmill_apps_cpuset_cpus': '-',
     'treadmill_mem': '-2G',
-    'treadmill_core_mem': '-',
+    'treadmill_core_mem': '1G',
     'localdisk_img_location': '/var/tmp/treadmill-node/',
     'localdisk_img_size': '-2G',
     'localdisk_block_dev': None,
