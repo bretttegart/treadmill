@@ -233,7 +233,6 @@ host-aliases = treadmill.sproc.host_aliases
 host-ring = treadmill.sproc.host_ring
 init = treadmill.sproc.init
 kafka = treadmill.sproc.kafka
-kernel-watchdog = treadmill.sproc.kernel_watchdog
 keytabs = treadmill.sproc.keytabs
 metrics = treadmill.sproc.metrics
 monitor = treadmill.sproc.monitor
