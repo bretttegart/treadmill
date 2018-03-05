@@ -139,6 +139,7 @@ _LINUX_ALIASES = {
     'vgremove': '/sbin/vgremove',
     'ipa': '/bin/ipa',
     'wc': '/usr/bin/wc',
+    'watchdog': '/sbin/watchdog',
     'withstdinas': '/opt/s6/bin/withstdinas',
 }
 
