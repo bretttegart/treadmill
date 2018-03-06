@@ -12,7 +12,7 @@ import logging
 from ldap3.core import exceptions as ldap_exceptions
 
 from treadmill import admin
-from treadmill import context
+from treadmill import dnsctx
 
 
 _LOGGER = logging.getLogger(__name__)

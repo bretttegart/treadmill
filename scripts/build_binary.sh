@@ -34,4 +34,4 @@ else
 
     rpmbuild -ba "${BASE_DIR}/rpmbuild/SPECS/treadmill.spec"
     cp -v ${BASE_DIR}/rpmbuild/RPMS/noarch/treadmill*rpm ${BASE_DIR}/dist/
-
+fi

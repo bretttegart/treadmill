@@ -30,3 +30,6 @@ build/
 dist/
 cover/
 
+# Treadmill build artifacts
+lib/python/treadmill/VERSION.txt
+lib/python/treadmill.egg-info/PKG-INFO

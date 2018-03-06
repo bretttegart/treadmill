@@ -37,10 +37,10 @@ DEFAULTS = {
     'block_dev_write_bps': 12000000,
     'block_dev_read_iops': 2000,
     'block_dev_write_iops': 500,
-    'localdisk_default_read_bps': '20M',
-    'localdisk_default_read_iops': '20M',
-    'localdisk_default_write_bps': 100,
-    'localdisk_default_write_iops': 100,
+    'localdisk_default_read_bps': '50000000',
+    'localdisk_default_read_iops': '12000000',
+    'localdisk_default_write_bps': 2000,
+    'localdisk_default_write_iops': 500,
     'runtime_linux_host_mounts': (
         '/,/dev*,/proc*,/sys*,/run*,/mnt*,'
     ),
