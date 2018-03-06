@@ -30,7 +30,7 @@ _LINUX_ALIASES = {
     'dnscache': None,
     'docker': '/usr/bin/docker',
     'dockerd': '/usr/bin/dockerd',
-    'docker_runtime': '/usr/libexec/docker/docker-runc-latest',
+    'docker_runtime': '/usr/libexec/docker/docker-runc-current',
     'dumpe2fs': '/sbin/dumpe2fs',
     'echo': '/bin/echo',
     'elglob': '/opt/s6/bin/elglob',
