@@ -44,7 +44,7 @@ def validate_ipa_password(ctx, param, value):
 def validate_domain(ctx, param, value):
     """Cloud domain validation"""
 
-    if value.count(".") == 0:
+    if '.' not in value:
         raise click.BadParameter('Valid domain like example.com')
 
     return value
