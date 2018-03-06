@@ -22,7 +22,7 @@ else
 
     pushd "${BASE_DIR}"
 
-    echo $2 > /treadmill/VERSION.txt
+    echo $2 > lib/python/treadmill/VERSION.txt
 
     cp -v dist/treadmill "${BASE_DIR}/rpmbuild/SOURCES/treadmill-0.1/treadmill"
     cp -v etc/treadmill.spec "${BASE_DIR}/rpmbuild/SPECS/"
@@ -33,14 +33,5 @@ else
     )
 
     rpmbuild -ba "${BASE_DIR}/rpmbuild/SPECS/treadmill.spec"
-    cp -v "${BASE_DIR}/rpmbuild/RPMS/noarch/treadmill*rpm" ${BASE_DIR}/dist/
+    cp -v ${BASE_DIR}/rpmbuild/RPMS/noarch/treadmill*rpm ${BASE_DIR}/dist/
 
-    rm -rf "${BASE_DIR}/rpmbuild"
-
-    if [ ! -z "$1" ]; then
-        if [ ! -d "/tmp/hub-linux-amd64-2.3.0-pre10" ]; then
-            wget -O /tmp/hub-linux-amd64-2.3.0-pre10.tgz http://github.com/github/hub/releases/download/v2.3.0-pre10/hub-linux-amd64-2.3.0-pre10.tgz && tar -xvzf /tmp/hub-linux-amd64-2.3.0-pre10.tgz -C /tmp/
-        fi
-        /tmp/hub-linux-amd64-2.3.0-pre10/bin/hub release create -p -m "$1" -a "${BASE_DIR}/dist/treadmill" $2
-    fi
-fi

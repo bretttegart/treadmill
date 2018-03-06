@@ -4,7 +4,7 @@
 #
 
 exec \
-    {{ treadmill }}/bin/treadmill34 \
+    {{ treadmill }}/bin/treadmill \
     sproc restapi \
         -m api-lookup \
         -c '.*' \

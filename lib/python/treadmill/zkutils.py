@@ -136,7 +136,7 @@ def make_safe_create(zkclient):
     """Makes a wrapper for kazoo.client.create enforcing default acl."""
     _create = zkclient.create
 
-    def safe_create(_self, path, value=b'', acl=None, ephemeral=False,
+    def safe_create(_self, path, value='', acl=None, ephemeral=False,
                     sequence=False, makepath=False):
         """Safe wrapper around kazoo.client.create"""
         return _create(path, value=value, acl=make_default_acl(acl),

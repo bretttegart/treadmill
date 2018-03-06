@@ -20,6 +20,10 @@ __pycache__
 
 # Ignore generated files/dir
 lib/python/treadmill.egg-info/*
+# Ignore generated files
+lint.log
+pep8.log
+plcritic.log
 doc/build
 wheels/
 build/

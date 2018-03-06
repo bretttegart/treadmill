@@ -4,7 +4,7 @@
 #
 
 exec \
-    {{ treadmill }}/bin/treadmill34 \
+    {{ treadmill }}/bin/treadmill \
     sproc --cgroup . \
     exec -- \
         {{ dir }}/bin/refresh_host_ticket.sh

@@ -7,6 +7,7 @@ class Node(base_provision.BaseProvision):
     def setup(
             self,
             image,
+            count,
             key,
             tm_release,
             instance_type,
@@ -22,7 +23,7 @@ class Node(base_provision.BaseProvision):
         ])
 
         _ipa = ipa.API()
-        _node_hostnames = self._hostname_cluster(count=1)
+        _node_hostnames = self._hostname_cluster(count)
 
         for _idx in _node_hostnames.keys():
             _node_h = _node_hostnames[_idx]

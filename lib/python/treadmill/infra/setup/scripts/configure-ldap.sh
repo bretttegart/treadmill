@@ -1,15 +1,36 @@
-echo Installing openldap
-
 yum -y install openldap openldap-clients openldap-servers ipa-admintools
 
 HOST_FQDN=$(hostname -f)
 
+mkdir /var/spool/keytabs-proids && chmod 755 /var/spool/keytabs-proids
+mkdir /var/spool/keytabs-services && chmod 755 /var/spool/keytabs-services
+mkdir /var/spool/tickets && chmod 755 /var/spool/tickets
+
+# force default back to FILE: from KEYRING:
+cat <<%E%O%T | sudo su - root -c 'cat - >/etc/krb5.conf.d/default_ccache_name '
+[libdefaults]
+  default_ccache_name = FILE:/var/spool/tickets/%{username}
+%E%O%T
+
 kinit -kt /etc/krb5.keytab
 
-echo Retrieving LDAP service keytab
-ipa-getkeytab -s "{{ IPA_SERVER_HOSTNAME }}" -p "ldap/$HOST_FQDN@{{ DOMAIN|upper }}" -k /etc/ldap.keytab
-ipa-getkeytab -r -p "${PROID}" -D "cn=Directory Manager" -w "{{ IPA_ADMIN_PASSWORD }}" -k /etc/"${PROID}".keytab
-chown "${PROID}":"${PROID}" /etc/ldap.keytab /etc/"${PROID}".keytab
+# Retrieving LDAP service keytab
+ipa-getkeytab -s "{{ IPA_SERVER_HOSTNAME }}" -p "ldap/$HOST_FQDN@{{ DOMAIN|upper }}" -k /var/spool/keytabs-services/ldap.keytab
+
+# Retrieving ${proid} keytab
+ipa-getkeytab -r -p "${PROID}" -D "cn=Directory Manager" -w "{{ IPA_ADMIN_PASSWORD }}" -k /var/spool/keytabs-proids/"${PROID}".keytab
+chown "${PROID}":"${PROID}" /var/spool/keytabs-services/ldap.keytab /var/spool/keytabs-proids/${PROID}.keytab
+
+(
+cat <<EOF
+kinit -k -t /var/spool/keytabs-proids/${PROID}.keytab -c /var/spool/tickets/${PROID}.tmp ${PROID}
+chown ${PROID}:${PROID} /var/spool/tickets/${PROID}.tmp
+mv /var/spool/tickets/${PROID}.tmp /var/spool/tickets/${PROID}
+EOF
+) > /etc/cron.hourly/${PROID}-kinit
+
+chmod 755 /etc/cron.hourly/${PROID}-kinit
+/etc/cron.hourly/${PROID}-kinit
 
 # Enable 22389 port for LDAP (requires policycoreutils-python)
 /sbin/semanage  port -a -t ldap_port_t -p tcp 22389
@@ -26,7 +47,7 @@ Description=OpenLDAP Directory Server
 After=network.target
 
 [Service]
-Environment="KRB5_KTNAME=/etc/ldap.keytab"
+Environment="KRB5_KTNAME=/var/spool/keytabs-services/ldap.keytab"
 User=${PROID}
 Group=${PROID}
 SyslogIdentifier=openldap
@@ -45,16 +66,13 @@ s6-setuidgid "${PROID}" \
         --owner "${PROID}" \
         --uri ldap://0.0.0.0:22389 \
         --suffix "${LDAP_DC}" \
-        --gssapi
+        --gssapi \
+        --env linux
 
 # TODO: Create global utility function for adding service
 systemctl daemon-reload
 systemctl enable openldap.service --now
 systemctl status openldap
-
-echo Initializing openldap
-
-su -c "kinit -k -t /etc/${PROID}.keytab ${PROID}" "${PROID}"
 
 s6-setuidgid "${PROID}" {{ TREADMILL }} admin ldap init
 

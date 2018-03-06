@@ -12,13 +12,22 @@ then
 
     {{ slapadd }} -F {{ dir_config }} \
         -n 0 -l {{ dir_config }}/slapd.ldif -d -1
+
+    if [[ "$?" != 0 ]]
+    then
+        $RM -rvf '{{ dir_config }}/cn=config'
+        $ECHO ERROR - slapadd of slapd.ldif failed. exiting.
+        exit 1
+    fi
+
+
     {{ slapadd }} -F {{ dir_config }} \
         -n 0 -l {{ dir_config }}/schema/treadmill.ldif -d -1
 
     if [[ "$?" != 0 ]]
     then
         $RM -rvf '{{ dir_config }}/cn=config'
-        $ECHO ERROR - slapadd failed. exiting.
+        $ECHO ERROR - slapadd of treadmill.ldif failed. exiting.
         exit 1
     fi
 fi

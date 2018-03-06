@@ -43,4 +43,7 @@ ${PEX} -vvv ${EGG} \
     --no-pypi \
     --no-build \
     --repo ${WHEELS_DIR} \
-    -r requirements_pex.txt 
+    -r requirements_pex.txt
+
+rm -v dist/*egg
+rm -rf /home/ec2-user/git/build

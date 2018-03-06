@@ -171,7 +171,7 @@ def init():
                   show_default=True,
                   help='Treadmill master name')
     @click.option('--instance-type',
-                  default=constants.INSTANCE_TYPES['EC2']['micro'],
+                  default=constants.INSTANCE_TYPES['EC2']['large'],
                   show_default=True,
                   help='AWS ec2 instance type')
     @click.option('--tm-release',
@@ -349,6 +349,9 @@ def init():
     @click.option('--name', default='TreadmillNode',
                   show_default=True,
                   help='Node name')
+    @click.option('--count', default='1', type=int,
+                  show_default=True,
+                  help='Number of Treadmill nodes to spin up')
     @click.option('--instance-type',
                   default=constants.INSTANCE_TYPES['EC2']['large'],
                   show_default=True,
@@ -371,6 +374,7 @@ def init():
                   mutually_exclusive=['region',
                                       'vpc_name',
                                       'name',
+                                      'count',
                                       'key',
                                       'image',
                                       'instance_type',
@@ -383,7 +387,7 @@ def init():
     @click.pass_context
     @cli.ON_CLI_EXCEPTIONS
     def configure_node(ctx, vpc_id, key, image, subnet_name, region, name,
-                       instance_type, tm_release, app_root,
+                       instance_type, tm_release, app_root, count,
                        ipa_admin_password, with_api, manifest):
         """Configure new Node in Cell"""
         domain = ctx.obj['DOMAIN']
@@ -404,6 +408,7 @@ def init():
         _node.setup(
             key=key,
             image=image,
+            count=count,
             instance_type=instance_type,
             tm_release=tm_release,
             app_root=app_root,

@@ -278,6 +278,9 @@ def init():
     @click.option('--name', default='TreadmillNode',
                   show_default=True,
                   help='Node name')
+    @click.option('--count', default='1', type=int,
+                  show_default=True,
+                  help='Number of Treadmill nodes to spin up')
     @click.option('--key', required=True, help='SSH Key Name')
     @click.option('--image', required=True,
                   help='Image to use for new node instance e.g. RHEL-7.4')
@@ -310,6 +313,7 @@ def init():
                       'instance_type',
                       'tm_release',
                       'app_root',
+                      'count',
                       'subnet_name',
                       'ipa_admin_password',
                       'with_api',
@@ -318,7 +322,7 @@ def init():
     @cli.handle_exceptions(restclient.CLI_REST_EXCEPTIONS)
     @click.pass_context
     def configure_node(ctx, vpc_name, region, name, key, image, subnet_name,
-                       instance_type, tm_release, app_root,
+                       instance_type, tm_release, app_root, count,
                        ipa_admin_password, with_api, manifest):
         """Configure new Node in Cell"""
 
@@ -332,6 +336,7 @@ def init():
                 payload={
                     "role": "node",
                     "key": key,
+                    "count": count,
                     "tm_release": tm_release,
                     "region": region,
                     "app_root": app_root,

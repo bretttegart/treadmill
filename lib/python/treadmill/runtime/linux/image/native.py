@@ -238,6 +238,8 @@ def make_fsroot(root_dir):
         '/var/spool/tokens',
         # for SSS
         '/var/lib/sss',
+        # for sshd
+        '/var/empty/sshd',
     ]
 
     stickydirs = [

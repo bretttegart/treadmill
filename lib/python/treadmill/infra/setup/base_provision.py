@@ -109,9 +109,9 @@ class BaseProvision:
         _hostnames = {}
         for _idx in range(0, count):
             _idx_s = str(_idx + 1)
-            _hostnames[_idx_s] = self.name + _idx_s + '-' + str(
+            _hostnames[_idx_s] = self.name + '-' + str(
                 time.time()
-            ) + '.' + connection.Connection.context.domain
+            ).replace('.', '') + '.' + connection.Connection.context.domain
 
         return _hostnames
 

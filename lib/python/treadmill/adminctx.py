@@ -37,6 +37,7 @@ def resolve(ctx, attr):
     #                need to standardize on ContextError raised lazily
     #                on first connection attempt, and keep resolve
     #                exception free.
+    '''
     try:
         admin_cell = admin.Cell(ctx.ldap.conn)
         cell = admin_cell.get(ctx.cell)
@@ -55,7 +56,9 @@ def resolve(ctx, attr):
         )
         _LOGGER.debug(str(exception))
         raise exception
-
+    '''
+    # ZK no longer installed on Master servers
+    return '{}:2181'.format(dnsctx.resolve(ctx, 'zk_url'))
 
 def init(_ctx):
     """Init context."""

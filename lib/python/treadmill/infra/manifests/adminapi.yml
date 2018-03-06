@@ -5,7 +5,7 @@ services:
 - command: |
     exec treadmill sproc restapi -p 5108 \
       --title 'Treadmill_Global_Config_API' \
-      -m app,app-group,app-dns,tenant,lbendpoint,allocation,cell \
+      -m app,app-group,tenant,allocation,cell \
       --cors-origin='.*'
   name: rest-api
   restart:

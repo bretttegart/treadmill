@@ -6,6 +6,7 @@ from treadmill.api import ipa
 from datetime import datetime
 from functools import reduce
 import logging
+from time import sleep
 
 import polling
 
@@ -184,6 +185,9 @@ class Instances:
             } if role == 'IPA' else {}
         )
 
+        # Sometimes AWS takes longer than 1 sec to return the new instance.
+        sleep(2)
+
         _ids = [i['InstanceId'] for i in _instances['Instances']]
         _instances_json = Instances.load_json(ids=_ids)
 
@@ -282,8 +286,8 @@ class Instances:
         conn = connection.Connection()
         images = conn.describe_images(
             Filters=[
-                {'Name': 'name', 'Values': [image + '*']},
-                {'Name': 'owner-id', 'Values': ['309956199498']},
+                {'Name': 'tag:Name', 'Values': [image + '*']},
+                {'Name': 'owner-id', 'Values': ['012749808589']},
                 {'Name': 'image-type', 'Values': ['machine']}
             ],
         )['Images']

@@ -42,6 +42,8 @@ class IPA(base_provision.BaseProvision):
             create=True
         )
 
+        # Disabling due to conflict with Bracket secgrp assignment
+        '''
         secgroup_id = self.vpc.create_security_group(
             constants.IPA_SEC_GRP, 'IPA Security Group'
         )
@@ -52,6 +54,7 @@ class IPA(base_provision.BaseProvision):
             'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
         }]
         self.vpc.add_secgrp_rules(ip_permissions, secgroup_id)
+        '''
 
         _ipa_hostnames = self._hostname_cluster(count=count)
 
@@ -73,7 +76,7 @@ class IPA(base_provision.BaseProvision):
                 key=key,
                 instance_type=instance_type,
                 subnet_name=subnet_name,
-                sg_names=[constants.COMMON_SEC_GRP, constants.IPA_SEC_GRP],
+                sg_names=[constants.COMMON_SEC_GRP],
             )
 
         def check_passed_status():
@@ -90,12 +93,16 @@ class IPA(base_provision.BaseProvision):
             step=10,
             timeout=600
         )
+
+        # This needs to fire _after_ the domain is stood up
+        '''
         self.vpc.associate_dhcp_options(default=True)
 
         try:
             self.vpc.delete_dhcp_options()
         except Exception:
             pass
+        '''
 
         self.vpc.associate_dhcp_options([
             {

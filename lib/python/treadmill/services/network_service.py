@@ -53,7 +53,7 @@ class NetworkResourceService(BaseResourceServiceImpl):
     _TMBR_DEV = 'br0'
     _TM_DEV0 = 'tm0'
     _TM_DEV1 = 'tm1'
-    _TM_IP = '192.168.254.254'
+    _TM_IP = '10.254.254.254'
 
     def __init__(self, ext_device, ext_ip=None, ext_mtu=None, ext_speed=None):
         super(NetworkResourceService, self).__init__()

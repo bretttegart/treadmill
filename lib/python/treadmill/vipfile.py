@@ -58,7 +58,7 @@ class VipMgr(object):
                 continue
             if minor in [0, 256]:
                 continue
-            ip = '192.168.{major}.{minor}'.format(major=major, minor=minor)
+            ip = '10.254.{major}.{minor}'.format(major=major, minor=minor)
             if not self._alloc(owner, ip):
                 continue
             # We were able to grab the IP.

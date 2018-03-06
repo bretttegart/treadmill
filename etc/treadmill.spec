@@ -13,9 +13,9 @@ lightweight, container-based compute fabric
 %setup -q
 %build
 %install
-install -m 0755 -d $RPM_BUILD_ROOT/bin
-install -m 0755 treadmill $RPM_BUILD_ROOT/bin/treadmill
+install -m 0755 -d $RPM_BUILD_ROOT/opt/treadmill/bin
+install -m 0755 treadmill $RPM_BUILD_ROOT/opt/treadmill/bin/treadmill
 %clean
 %post
 %files
-/bin/treadmill
+/opt/treadmill/bin/treadmill

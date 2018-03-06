@@ -5,7 +5,7 @@
 #
 
 exec \
-    {{ treadmill }}/bin/treadmill34 \
+    {{ treadmill }}/bin/treadmill \
     sproc --cgroup . \
     exec -- \
     {{ _alias.s6_ipcserver }} {{ dir }}/ctl/appevents \

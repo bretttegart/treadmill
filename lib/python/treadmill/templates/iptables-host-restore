@@ -87,7 +87,7 @@ COMMIT
 
 :PREROUTING ACCEPT [0:0]
 -F PREROUTING
--A PREROUTING -m set --match-set {{any_container}} src -d 192.168.10.10 -j TM_SERVICES
+-A PREROUTING -m set --match-set {{any_container}} src -d 10.254.10.10 -j TM_SERVICES
 -A PREROUTING -m set --match-set {{passthroughs}} src -j {{passthrough_chain}}
 -A PREROUTING -m set --match-set {{vring_containers}} src -j {{vring_dnat_chain}}
 -A PREROUTING -j {{dnat_chain}}
