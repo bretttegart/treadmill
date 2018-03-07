@@ -10,10 +10,8 @@ import os
 
 from .. import aliases
 
-if os.name == 'nt':
-    _DEFAULT_RUNTIME = 'docker'
-else:
-    _DEFAULT_RUNTIME = 'linux'
+# Docker2 runtime compatible with both NT and Linux
+_DEFAULT_RUNTIME = 'docker2'
 
 _DEFAULT_TREADMILL_VG = 'treadmill'
 _DEFAULT_HOST_TICKET = '{{ dir }}/spool/tickets/krb5cc_host'
