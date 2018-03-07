@@ -460,7 +460,6 @@ def _bind_overlay(container_dir, root_dir):
     #
     overlay_dir = os.path.join(container_dir, 'overlay')
     for overlay_file in ['etc/hosts',
-                         'etc/krb5.keytab',
                          'etc/ld.so.preload',
                          'etc/pam.d/sshd',
                          'etc/resolv.conf']:
