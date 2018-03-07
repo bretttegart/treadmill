@@ -329,6 +329,8 @@ def create_overlay(tm_env, container_dir, root_dir, app):
 def _prepare_krb(tm_env, container_dir, root_dir, app):
     """Manage kerberos environment inside container.
     """
+    # FIXME: Disabling Krb until tktfwd resolved
+    return
     etc_dir = os.path.join(container_dir, 'overlay', 'etc')
     fs.mkdir_safe(etc_dir)
     kt_dest = os.path.join(etc_dir, 'krb5.keytab')
