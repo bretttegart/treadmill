@@ -146,7 +146,6 @@ def run(tm_env, runtime_config, container_dir, manifest):
             '-s',
             os.path.join(container_dir, 'sys')
         ],
-        propagation='slave',
         # We need to keep our mapped ports open
         close_fds=False
     )
