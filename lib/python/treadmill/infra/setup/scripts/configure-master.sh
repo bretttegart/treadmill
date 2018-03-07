@@ -22,6 +22,9 @@ chown "${PROID}":"${PROID}" /var/spool/keytabs-proids/"${PROID}".keytab
 (
 cat <<EOF
 kinit -kt /etc/krb5.keytab  -c /var/tmp/treadmill-master/treadmill/spool/krb5cc_host
+cp /var/tmp/treadmill-master/treadmill/spool/krb5cc_host /var/spool/tickets/${PROID}.tmp
+chown ${PROID}:${PROID} /var/spool/tickets/${PROID}.tmp
+mv /var/spool/tickets/${PROID}.tmp /var/spool/tickets/${PROID}
 EOF
 ) > /etc/cron.hourly/host-kinit
 
