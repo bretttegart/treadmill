@@ -31,16 +31,16 @@ DEFAULTS = {
     'localdisk_block_dev': None,
     'localdisk_vg_name': _DEFAULT_TREADMILL_VG,
     'block_dev_configuration': None,
-    'block_dev_read_bps': 50000000,
-    'block_dev_write_bps': 12000000,
-    'block_dev_read_iops': 2000,
-    'block_dev_write_iops': 500,
-    'localdisk_default_read_bps': '50000000',
-    'localdisk_default_read_iops': '12000000',
-    'localdisk_default_write_bps': 2000,
-    'localdisk_default_write_iops': 500,
+    'block_dev_read_bps': None,
+    'block_dev_write_bps': None,
+    'block_dev_read_iops': None,
+    'block_dev_write_iops': None,
+    'localdisk_default_read_bps': '1G',
+    'localdisk_default_read_iops': '100000',
+    'localdisk_default_write_bps': '1G',
+    'localdisk_default_write_iops': 100000,
     'runtime_linux_host_mounts': (
-        '/,/dev*,/proc*,/sys*,/run*,/mnt*,'
+        '/,/dev*,/proc*,/sys*,/run*,/mnt*,/etc/resolv.conf,'
     ),
     'docker_network': 'nat',
 }
