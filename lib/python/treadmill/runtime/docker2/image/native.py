@@ -236,6 +236,10 @@ def make_fsroot(root_dir):
         '/var/spool/keytabs',
         '/var/spool/tickets',
         '/var/spool/tokens',
+        # for SSS
+        '/var/lib/sss',
+        # for sshd
+        '/var/empty/sshd',
     ]
 
     stickydirs = [
@@ -265,6 +269,7 @@ def make_fsroot(root_dir):
         # TODO: Remove below once PAM UDS is implemented
         '/var/tmp/treadmill/env',
         '/var/tmp/treadmill/spool',
+        '/opt', #Make TM dependencies install appear in containers
     ]
 
     for directory in emptydirs:
