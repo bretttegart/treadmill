@@ -270,6 +270,7 @@ def make_fsroot(root_dir):
         '/var/tmp/treadmill/env',
         '/var/tmp/treadmill/spool',
         '/opt', #Make TM dependencies install appear in containers
+        '/var/lib/sss',
     ]
 
     for directory in emptydirs:
