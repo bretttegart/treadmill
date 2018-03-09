@@ -31,6 +31,19 @@ EOF
 chmod 755 /etc/cron.hourly/"${PROID}"-kinit
 /etc/cron.hourly/"${PROID}"-kinit
 
+# Docker configuration
+cat <<EOF
+DOCKER_NETWORK_OPTIONS=\
+  --bridge=none\
+  --ip-forward=false\
+  --ip-masq=false\
+  --iptables=false
+EOF
+) > /etc/sysconfig/docker-latest-network
+
+systemctl enable docker-latest --now
+
+
 (
 TIMEOUT=30
 retry_count=0
