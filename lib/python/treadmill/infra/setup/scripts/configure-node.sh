@@ -90,6 +90,10 @@ ln -s /var/spool/tickets/"${PROID}" {{ APP_ROOT }}/spool/krb5cc_host
 
 s6-setuidgid "${PROID}" {{ TREADMILL }} admin ldap server configure "$(hostname -f)" --cell "{{ SUBNET_ID }}"
 
+# Configure cgroups for docker2 runtime
+echo 1 > /sys/fs/cgroup/cpuset/cgroup.clone_children
+
+
 /bin/systemctl daemon-reload
 /bin/systemctl enable treadmill-node.service --now
 
