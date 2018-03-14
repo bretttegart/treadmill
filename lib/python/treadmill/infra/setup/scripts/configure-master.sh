@@ -30,9 +30,12 @@ EOF
 
 chmod 755 /etc/cron.hourly/host-kinit
 
+
 (
 cat <<EOF
-su -c 'kinit -k -t /var/spool/keytabs-proids/"${PROID}".keytab "${PROID}"' ${PROID}
+kinit -k -t /var/spool/keytabs-proids/${PROID}.keytab -c /var/spool/tickets/${PROID}.tmp ${PROID}
+chown ${PROID}:${PROID} /var/spool/tickets/${PROID}.tmp
+mv /var/spool/tickets/${PROID}.tmp /var/spool/tickets/${PROID}
 EOF
 ) > /etc/cron.hourly/"${PROID}"-kinit
 
