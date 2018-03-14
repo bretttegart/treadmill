@@ -85,7 +85,7 @@ _LINUX_ALIASES = {
     'mount': '/bin/mount',
     'mv': '/bin/mv',
     'named': '/usr/sbin/named',
-    'openldap': None,
+    'openldap': '',
     'pid1': '/opt/treadmill-pid1/bin/pid1',
     'pipeline': '/opt/s6/bin/pipeline',
     'printf': '/usr/bin/printf',
