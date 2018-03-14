@@ -2,6 +2,8 @@ setenforce 0
 sed -i -e 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 
 echo Installing Node packages
+
+yum-config-manager --enable rhui-REGION-rhel-server-extras
 yum -y install conntrack-tools iproute libcgroup libcgroup-tools bridge-utils openldap-clients lvm2* ipset iptables rrdtool bc docker-latest
 
 source /etc/profile.d/treadmill_profile.sh
@@ -22,16 +24,21 @@ kinit -kt /etc/krb5.keytab
 ipa-getkeytab -r -p "${PROID}" -D "cn=Directory Manager" -w "{{ IPA_ADMIN_PASSWORD }}" -k /var/spool/keytabs-proids/"${PROID}".keytab
 chown "${PROID}":"${PROID}" /var/spool/keytabs-proids/"${PROID}".keytab
 
+
 (
 cat <<EOF
-su -c 'kinit -k -t /var/spool/keytabs-proids/"${PROID}".keytab "${PROID}"' ${PROID}
+kinit -k -t /var/spool/keytabs-proids/${PROID}.keytab -c /var/spool/tickets/${PROID}.tmp ${PROID}
+chown ${PROID}:${PROID} /var/spool/tickets/${PROID}.tmp
+mv /var/spool/tickets/${PROID}.tmp /var/spool/tickets/${PROID}
 EOF
 ) > /etc/cron.hourly/"${PROID}"-kinit
+
 
 chmod 755 /etc/cron.hourly/"${PROID}"-kinit
 /etc/cron.hourly/"${PROID}"-kinit
 
 # Docker configuration
+(
 cat <<EOF
 DOCKER_NETWORK_OPTIONS=\
   --bridge=none\
@@ -61,7 +68,7 @@ touch /etc/ld.so.preload
 touch /etc/treadmill_bind_preload.so
 
 (
-cat <<EOF
+cat <<EOF 
 [Unit]
 Description=Treadmill node services
 After=network.target
