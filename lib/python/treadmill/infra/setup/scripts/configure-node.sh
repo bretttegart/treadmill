@@ -63,6 +63,13 @@ done
 
 {{ TREADMILL }} --outfmt yaml admin ldap cell configure "{{ SUBNET_ID }}" > /var/tmp/cell_conf.yml
 
+(
+cat <<EOF
+{"treadmill_runtime": "docker2", "localdisk_default_read_iops": 100000, "localdisk_default_write_bps": "1G", "localdisk_default_read_bps": "1G"}
+EOF
+) > /var/tmp/server.json
+
+su -c 'treadmill admin ldap server configure "$(hostname -f)" -data /var/tmp/server.json' "${PROID}"
 
 touch /etc/ld.so.preload
 touch /etc/treadmill_bind_preload.so
