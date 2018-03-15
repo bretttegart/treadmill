@@ -69,7 +69,7 @@ cat <<EOF
 EOF
 ) > /var/tmp/server.json
 
-su -c 'treadmill admin ldap server configure "$(hostname -f)" -data /var/tmp/server.json' "${PROID}"
+su -c 'treadmill admin ldap server configure "$(hostname -f)" --data /var/tmp/server.json' "${PROID}"
 
 touch /etc/ld.so.preload
 touch /etc/treadmill_bind_preload.so
