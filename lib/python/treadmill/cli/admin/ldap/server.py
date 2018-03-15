@@ -50,8 +50,12 @@ def init():
                 partition = None
             attrs['partition'] = partition
         if data:
-            with io.open(data, 'rb') as fd:
-                attrs['data'] = json.loads(fd.read())
+            try:
+                with io.open(data, 'rb') as fd:
+                    attrs['data'] = json.loads(fd.read())
+            except TypeError:
+                with io.open(data, 'r') as fd:
+                    attrs['data'] = json.loads(fd.read())
 
         if attrs:
             try:
