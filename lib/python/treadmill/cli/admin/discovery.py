@@ -31,13 +31,13 @@ def _iterate(discovery_iter, check_state, sep):
                 sock.settimeout(1)
 
                 try:
-                    host, port = hostport.split(b':')
+                    host, port = hostport.split(':')
                     sock.connect((host, int(port)))
                     sock.close()
                     state = 'up'
                 except socket.error:
                     state = 'down'
-            record = [app, hostport.decode()]
+            record = [app, hostport]
 
             if state:
                 record.append(state)
